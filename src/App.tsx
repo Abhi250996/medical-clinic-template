@@ -47,11 +47,14 @@ export default function App() {
   ];
 
   const scrollResearch = (direction: 'left' | 'right') => {
+    const isMobile = window.innerWidth < 768;
+    const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+    const visibleCards = isMobile ? 1 : isTablet ? 2 : 4;
+
     if (direction === 'left') {
       setCurrentResearchIndex(prev => Math.max(0, prev - 1));
     } else {
-      // For desktop showing 4 cards, cap at length - 4
-      setCurrentResearchIndex(prev => Math.min(researchCards.length - 4, prev + 1));
+      setCurrentResearchIndex(prev => Math.min(researchCards.length - visibleCards, prev + 1));
     }
   };
   const { scrollYProgress } = useScroll();
@@ -504,7 +507,7 @@ export default function App() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 1.2, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
                     >
-                      <h1 className="text-[12vw] lg:text-[10vw] font-display font-extrabold text-midnight-navy leading-[0.85] tracking-[-0.04em]">
+                    <h1 className="text-[14vw] md:text-[12vw] lg:text-[10vw] font-display font-extrabold text-midnight-navy leading-[0.85] tracking-[-0.04em]">
                         PRECISION <br />
                         <span className="text-medical-blue italic font-thin tracking-[-0.02em] shimmer bg-clip-text">GENOMICS.</span>
                       </h1>
@@ -728,15 +731,15 @@ export default function App() {
         
         <div className="max-w-[1400px] mx-auto px-6 relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-end gap-10 mb-20">
-            <div className="reveal-el max-w-2xl">
-              <span className="text-medical-blue font-bold tracking-[0.4em] uppercase text-[10px]">Innovation Hub</span>
-              <h2 className="text-5xl md:text-7xl font-display font-black text-midnight-navy tracking-tighter mt-6 leading-none">
-                THE FUTURE <br /> OF <span className="text-medical-blue italic font-normal">DIAGNOSTICS.</span>
-              </h2>
-              <p className="text-midnight-navy/50 text-lg font-light leading-relaxed mt-8">
-                Our research facilities are at the nexus of technology and biology. From automated screening to AI-driven insights, we push the boundaries of what's possible in modern healthcare.
-              </p>
-            </div>
+              <div className="reveal-el max-w-2xl">
+                <span className="text-medical-blue font-bold tracking-[0.4em] uppercase text-[10px]">Innovation Hub</span>
+                <h2 className="text-4xl md:text-7xl font-display font-black text-midnight-navy tracking-tighter mt-4 md:mt-6 leading-none">
+                  THE FUTURE <br /> OF <span className="text-medical-blue italic font-normal">DIAGNOSTICS.</span>
+                </h2>
+                <p className="text-midnight-navy/50 text-sm md:text-lg font-light leading-relaxed mt-4 md:mt-8">
+                  Our research facilities are at the nexus of technology and biology. From automated screening to AI-driven insights, we push the boundaries of what's possible in modern healthcare.
+                </p>
+              </div>
             
             <div className="flex gap-4 reveal-el">
                <button 
@@ -759,14 +762,20 @@ export default function App() {
           <div className="relative">
             <div className="overflow-hidden p-4 -m-4">
               <motion.div 
-                className="flex gap-8"
-                animate={{ x: `calc(-${currentResearchIndex} * (25% + 24px))` }}
+                className="flex gap-4 md:gap-8"
+                animate={{ 
+                  x: window.innerWidth < 768 
+                    ? `-${currentResearchIndex * 100}%` 
+                    : window.innerWidth < 1024 
+                      ? `-${currentResearchIndex * 50}%` 
+                      : `-${currentResearchIndex * 25}%` 
+                }}
                 transition={{ type: "spring", stiffness: 100, damping: 20 }}
               >
                 {researchCards.map((card, idx) => (
-                  <div key={idx} className="w-[calc(100%-32px)] md:w-[calc(50%-16px)] lg:w-[calc(25%-24px)] flex-shrink-0">
-                    <div className="reveal-el group cursor-pointer overflow-hidden rounded-[3rem] border border-medical-blue/10 hover:border-medical-blue/30 transition-all duration-700 bg-white shadow-xl h-full flex flex-col hover:-translate-y-4 shadow-medical-blue/5 hover:shadow-medical-blue/20">
-                      <div className="relative h-[300px] overflow-hidden">
+                  <div key={idx} className="w-full md:w-[calc(50%-16px)] lg:w-[calc(25%-24px)] flex-shrink-0">
+                    <div className="reveal-el group cursor-pointer overflow-hidden rounded-[3rem] border border-medical-blue/10 hover:border-medical-blue/30 transition-all duration-700 bg-white shadow-xl h-full flex flex-col hover:-translate-y-2 md:hover:-translate-y-4 shadow-medical-blue/5 hover:shadow-medical-blue/20">
+                      <div className="relative h-[250px] md:h-[300px] overflow-hidden">
                         <img 
                           src={card.image} 
                           className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
@@ -813,54 +822,54 @@ export default function App() {
       </section>
 
       {/* Services Showcase - Bento Grid */}
-      <section className="bg-medical-light py-40 rounded-[5rem] mx-4 relative overflow-hidden -mt-10 shadow-inner">
+      <section className="bg-medical-light py-24 md:py-40 rounded-[3rem] md:rounded-[5rem] md:mx-4 relative overflow-hidden -mt-10 shadow-inner">
         <div className="max-w-[1400px] mx-auto px-6 relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-end gap-10 mb-32 reveal-el">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 mb-16 md:mb-32 reveal-el">
             <div className="flex flex-col items-start">
               <span className="text-medical-blue font-bold tracking-[0.8em] uppercase text-[10px] mb-4">Medical Expertise</span>
-              <h2 className="text-6xl md:text-9xl font-display font-black text-midnight-navy tracking-tighter leading-[0.8]">Clinical <br /> Prowess.</h2>
+              <h2 className="text-5xl md:text-9xl font-display font-black text-midnight-navy tracking-tighter leading-[0.8]">Clinical <br /> Prowess.</h2>
             </div>
-            <p className="max-w-md text-midnight-navy/40 text-lg font-light leading-relaxed border-l border-medical-blue/20 pl-8 hidden lg:block">
+            <p className="max-w-md text-midnight-navy/40 text-sm md:text-lg font-light leading-relaxed border-l border-medical-blue/20 pl-4 md:pl-8">
               Our multidisciplinary approach combines decades of surgical experience with futuristic diagnostic tools to deliver unmatched care.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
             <FeatureCard 
-              className="md:col-span-8 md:row-span-2 min-h-[500px]"
+              className="md:col-span-8 md:row-span-2 min-h-[400px] md:min-h-[500px]"
               title="Robotic Surgical Integration"
               image="https://images.unsplash.com/photo-1666214280391-c9ef08d09da8?q=80&w=1200&auto=format&fit=crop"
               desc="Experience the absolute pinnacle of surgical accuracy with our AI-guided, sub-millimeter robotic systems for complex neurological and cardiac procedures."
               badge="Next-Gen Surgical"
             />
             <FeatureCard 
-              className="md:col-span-4 h-[350px]"
+              className="md:col-span-4 h-[300px] md:h-[350px]"
               title="Advanced Cellular Analysis"
               image="https://plus.unsplash.com/premium_photo-1661382271058-03900019d8ba?q=80&w=1200&auto=format&fit=crop"
               desc="Real-time biological mapping to detect irregularities at the cellular level."
               badge="Diagnostics"
             />
             <FeatureCard 
-              className="md:col-span-4 h-[350px]" 
+              className="md:col-span-4 h-[300px] md:h-[350px]" 
               title="Holographic Imaging"
               image="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=800"
               desc="True 3D volumetric internal vision for unparalleled diagnostic confidence."
             />
             
             <FeatureCard 
-              className="md:col-span-4 min-h-[350px]"
+              className="md:col-span-4 min-h-[300px] md:min-h-[350px]"
               title="Preventive Genomics"
               image="https://plus.unsplash.com/premium_photo-1681426650328-8fc0a124b377?q=80&w=1200&auto=format&fit=crop"
               desc="Mapping your unique biological timeline."
             />
             <FeatureCard 
-              className="md:col-span-4 min-h-[350px]"
+              className="md:col-span-4 min-h-[300px] md:min-h-[350px]"
               title="Neural Restoration"
               image="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?auto=format&fit=crop&q=80&w=800"
               desc="Pioneering treatments for cognitive health."
             />
             <FeatureCard 
-              className="md:col-span-4 min-h-[350px]"
+              className="md:col-span-4 min-h-[300px] md:min-h-[350px]"
               title="Optimum Recovery"
               image="https://plus.unsplash.com/premium_photo-1681995498495-5258d436e705?q=80&w=1200&auto=format&fit=crop"
               desc="Accelerated biological healing protocols."
@@ -870,9 +879,9 @@ export default function App() {
       </section>
 
       {/* The Gallery - Medical Excellence */}
-      <section className="py-40 bg-soft-white grid-bg overflow-hidden reveal-section">
+      <section className="py-24 md:py-40 bg-soft-white grid-bg overflow-hidden reveal-section">
         <div className="max-w-[1400px] mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-end gap-10 mb-24">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 mb-16 md:mb-24">
             <div className="reveal-el">
               <span className="text-medical-blue font-bold tracking-[0.4em] uppercase text-[10px]">Excellence</span>
               <h2 className="text-5xl md:text-8xl font-display font-black text-midnight-navy tracking-tighter mt-4 leading-none">
@@ -884,10 +893,10 @@ export default function App() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             <motion.div 
-              whileHover={{ y: -20 }}
-              className="reveal-el col-span-1 h-[600px] rounded-[3rem] overflow-hidden shadow-2xl relative group"
+              whileHover={{ y: -10 }}
+              className="reveal-el col-span-1 h-[400px] md:h-[600px] rounded-[3rem] overflow-hidden shadow-2xl relative group"
             >
               <img 
                 src="https://images.unsplash.com/photo-1704455306925-1401c3012117?q=80&w=1200&auto=format&fit=crop" 
@@ -898,10 +907,10 @@ export default function App() {
               <div className="absolute inset-0 bg-medical-blue/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
             </motion.div>
             
-            <div className="flex flex-col gap-8 col-span-1">
+            <div className="flex flex-col gap-6 md:gap-8 col-span-1">
               <motion.div 
-                whileHover={{ y: -20 }}
-                className="reveal-el h-[284px] rounded-[3rem] overflow-hidden shadow-2xl relative group"
+                whileHover={{ y: -10 }}
+                className="reveal-el h-[250px] md:h-[284px] rounded-[3rem] overflow-hidden shadow-2xl relative group"
               >
                 <img 
                   src="https://images.unsplash.com/photo-1534644107580-3a4dbd494a95?q=80&w=1200&auto=format&fit=crop" 
@@ -911,8 +920,8 @@ export default function App() {
                 />
               </motion.div>
               <motion.div 
-                whileHover={{ y: -20 }}
-                className="reveal-el h-[284px] rounded-[3rem] overflow-hidden shadow-2xl relative group"
+                whileHover={{ y: -10 }}
+                className="reveal-el h-[250px] md:h-[284px] rounded-[3rem] overflow-hidden shadow-2xl relative group"
               >
                 <img 
                   src="https://plus.unsplash.com/premium_photo-1681843126728-04eab730febe?q=80&w=1200&auto=format&fit=crop" 
@@ -924,8 +933,8 @@ export default function App() {
             </div>
 
             <motion.div 
-              whileHover={{ y: -20 }}
-              className="reveal-el col-span-1 h-[600px] rounded-[3rem] overflow-hidden shadow-2xl relative group"
+              whileHover={{ y: -10 }}
+              className="reveal-el col-span-1 h-[400px] md:h-[600px] rounded-[3rem] overflow-hidden shadow-2xl relative group"
             >
               <img 
                 src="https://images.unsplash.com/photo-1674049406107-f5c1e8258d4a?q=80&w=1193&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
