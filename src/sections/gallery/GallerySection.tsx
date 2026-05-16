@@ -1,556 +1,211 @@
-import { motion } from "motion/react";
+import { useState } from "react";
 
-import {
-  Activity,
-  ArrowRight,
-  Camera,
-  CheckCircle2,
-  HeartPulse,
-  Sparkles,
-} from "lucide-react";
+import { ArrowUpRight, Sparkles } from "lucide-react";
 
-export default function GallerySection() {
-  const galleryImages = [
-    {
-      image:
-        "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1400&auto=format&fit=crop",
-      title: "Advanced Clinical Infrastructure",
-    },
+import DoctorProfileDialog from "@/src/components/dialogs/DoctorProfileDialog";
 
-    {
-      image:
-        "https://images.unsplash.com/photo-1538108149393-fbbd81895907?q=80&w=1400&auto=format&fit=crop",
-      title: "Modern Patient Recovery Systems",
-    },
+type DoctorProfile = {
+  name: string;
+  specialty: string;
+  experience: string;
 
-    {
-      image:
-        "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=1400&auto=format&fit=crop",
-      title: "Intelligent Healthcare Operations",
-    },
-  ];
+  degree: string;
+  qualification: string;
+  availability: string[];
+
+  timings: string;
+  consultationFee: string;
+
+  languages: string[];
+
+  nextSlot: string;
+
+  treatment: string;
+  service: string;
+
+  about: string;
+
+  image: string;
+};
+
+type Props = {
+  setIsBookingOpen: (v: boolean) => void;
+};
+
+const doctors: DoctorProfile[] = [
+  {
+    name: "Dr. Adrian Vance",
+    specialty: "Cardiologist",
+    experience: "12+ Years Experience",
+
+    degree: "MBBS, MD Cardiology",
+
+    qualification: "Harvard Medical School",
+
+    availability: ["Mon", "Tue", "Thu", "Sat"],
+
+    timings: "09:00 AM - 05:00 PM",
+
+    consultationFee: "$120",
+
+    languages: ["English", "Spanish"],
+
+    nextSlot: "Today • 04:30 PM",
+
+    treatment: "Heart & Preventive Care",
+
+    service: "Advanced Cardiac Diagnostics",
+
+    about:
+      "Specialized in preventive cardiology and long-term cardiac care management.",
+
+    image:
+      "https://images.unsplash.com/photo-1537368910025-700350fe46c7?q=80&w=800&auto=format&fit=crop",
+  },
+
+  {
+    name: "Dr. Elena Rostova",
+    specialty: "Pathologist",
+    experience: "10+ Years Experience",
+
+    degree: "MBBS, MD Pathology",
+
+    qualification: "Stanford Medical Institute",
+
+    availability: ["Mon", "Wed", "Fri"],
+
+    timings: "10:00 AM - 06:00 PM",
+
+    consultationFee: "$90",
+
+    languages: ["English", "German"],
+
+    nextSlot: "Today • 06:00 PM",
+
+    treatment: "Metabolic Diagnostics",
+
+    service: "Blood Testing",
+
+    about: "Expert in laboratory diagnostics and advanced biomarker testing.",
+
+    image:
+      "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=800&auto=format&fit=crop",
+  },
+
+  {
+    name: "Dr. Marcus Sterling",
+    specialty: "Neurologist",
+    experience: "14+ Years Experience",
+
+    degree: "MBBS, DM Neurology",
+
+    qualification: "John Hopkins Neurology Center",
+
+    availability: ["Tue", "Thu", "Sat"],
+
+    timings: "08:30 AM - 03:00 PM",
+
+    consultationFee: "$140",
+
+    languages: ["English", "French"],
+
+    nextSlot: "Tomorrow • 10:15 AM",
+
+    treatment: "Neurological Care",
+
+    service: "EEG Analysis",
+
+    about: "Focused on neurological disorders and migraine treatments.",
+
+    image:
+      "https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=800&auto=format&fit=crop",
+  },
+];
+
+export default function GallerySection({ setIsBookingOpen }: Props) {
+  const [selectedDoctor, setSelectedDoctor] = useState<DoctorProfile | null>(
+    null,
+  );
 
   return (
-    <section
-      id="gallery"
-      className="
-        relative
-
-        overflow-hidden
-
-        py-16
-        sm:py-20
-        lg:py-36
-
-        bg-white
-      "
-    >
-      {/* ================= BACKGROUND GLOW ================= */}
-      <div
-        className="
-          absolute
-          top-[-10%]
-          right-[-10%]
-
-          w-[320px]
-          h-[320px]
-
-          lg:w-[650px]
-          lg:h-[650px]
-
-          rounded-full
-
-          bg-[#14B8A6]/10
-
-          blur-[100px]
-          lg:blur-[140px]
-        "
-      />
-
-      <div
-        className="
-          absolute
-          bottom-[-10%]
-          left-[-10%]
-
-          w-[280px]
-          h-[280px]
-
-          lg:w-[500px]
-          lg:h-[500px]
-
-          rounded-full
-
-          bg-[#0F766E]/8
-
-          blur-[100px]
-          lg:blur-[140px]
-        "
-      />
-
-      {/* ================= CONTAINER ================= */}
-      <div
-        className="
-          relative z-10
-
-          w-full
-          max-w-[1650px]
-
-          mx-auto
-
-          px-5
-          sm:px-8
-          lg:px-20
-          xl:px-28
-        "
+    <>
+      <section
+        id="clinic-hub"
+        className="w-full bg-[#F0F4F4] px-4 sm:px-6 lg:px-8 py-6 lg:py-8"
       >
-        {/* ================= HEADER ================= */}
-        <div
-          className="
-    grid
-    lg:grid-cols-12
+        <div className="bg-white rounded-[32px] sm:rounded-[40px] px-6 sm:px-10 lg:px-14 py-12 lg:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+            {/* LEFT */}
+            <div className="lg:col-span-4">
+              {/* BADGE */}
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#F8FAFC]">
+                <Sparkles className="w-3.5 h-3.5 text-[#14B8A6]" />
 
-    gap-5
-    lg:gap-7
-
-    items-stretch
-  "
-        >
-          {/* ================= LEFT CONTENT ================= */}
-          <div
-            className="
-      lg:col-span-7
-
-      relative
-
-      overflow-hidden
-
-      rounded-[28px]
-      lg:rounded-[40px]
-
-      bg-[#F8FCFB]
-
-      border border-[#0F172A]/5
-
-      p-5
-      sm:p-7
-      lg:p-10
-
-      shadow-[0_20px_70px_rgba(15,23,42,0.05)]
-    "
-          >
-            {/* Glow */}
-            <div
-              className="
-        absolute
-        top-[-20%]
-        right-[-10%]
-
-        w-[260px]
-        h-[260px]
-
-        rounded-full
-
-        bg-[#14B8A6]/10
-
-        blur-[100px]
-      "
-            />
-
-            <div className="relative z-10">
-              {/* Badge */}
-              <div
-                className="
-          inline-flex
-          items-center gap-2
-
-          px-4 py-2.5
-          sm:px-5 sm:py-3
-
-          rounded-full
-
-          bg-[#14B8A6]/5
-
-          border border-[#14B8A6]/10
-        "
-              >
-                <Camera className="w-4 h-4 text-[#14B8A6]" />
-
-                <span
-                  className="
-            text-[9px]
-            sm:text-[10px]
-
-            uppercase
-
-            tracking-[0.22em]
-            sm:tracking-[0.28em]
-
-            font-black
-
-            text-[#0F766E]
-          "
-                >
-                  Clinical Environment
+                <span className="text-[10px] uppercase tracking-[0.18em] font-semibold text-[#0F172A]">
+                  Healthcare Specialists
                 </span>
               </div>
 
-              {/* Heading */}
-              <h2
-                className="
-          mt-5
-          sm:mt-7
-
-          text-[2.2rem]
-          sm:text-[4rem]
-          lg:text-[5rem]
-
-          leading-[0.9]
-
-          tracking-[-0.06em]
-
-          font-black
-
-          text-[#07111F]
-        "
-              >
-                Modern healthcare
-                <br />
-                spaces designed
-                <span className="text-[#0F766E]"> for comfort.</span>
+              {/* TITLE */}
+              <h2 className="mt-6 text-3xl sm:text-5xl leading-[0.95] tracking-[-0.05em] font-normal text-[#0F172A]">
+                Meet experienced healthcare specialists.
               </h2>
 
-              {/* Description */}
-              <p
-                className="
-          mt-5
-          sm:mt-7
-
-          max-w-[720px]
-
-          text-[14px]
-          sm:text-lg
-
-          leading-relaxed
-
-          text-[#07111F]/60
-        "
-              >
-                Every healthcare environment is thoughtfully designed to create
-                trust, comfort, efficiency, and exceptional clinical
-                experiences.
+              {/* DESCRIPTION */}
+              <p className="mt-6 text-sm sm:text-base leading-relaxed text-[#64748B] max-w-md">
+                Explore doctor profiles, consultation schedules and healthcare
+                expertise through one connected platform.
               </p>
-
-              {/* Tags */}
-              <div
-                className="
-          grid
-          grid-cols-2
-          sm:flex sm:flex-wrap
-
-          gap-3
-
-          mt-7
-        "
-              >
-                {[
-                  "Smart Infrastructure",
-                  "Luxury Recovery",
-                  "AI Operations",
-                  "Modern Equipment",
-                ].map((item) => (
-                  <div
-                    key={item}
-                    className="
-              flex items-center gap-2
-
-              rounded-full
-
-              bg-[#14B8A6]/5
-
-              border border-[#14B8A6]/10
-
-              px-4 py-3
-            "
-                  >
-                    <div className="w-2 h-2 rounded-full bg-[#14B8A6]" />
-
-                    <span
-                      className="
-                text-[11px]
-                sm:text-[12px]
-
-                font-semibold
-
-                text-[#0F172A]/70
-              "
-                    >
-                      {item}
-                    </span>
-                  </div>
-                ))}
-              </div>
             </div>
-          </div>
 
-          {/* ================= RIGHT IMAGE ================= */}
-          <motion.div
-            whileHover={{ y: -4 }}
-            className="
-      lg:col-span-5
+            {/* RIGHT */}
+            <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-5">
+              {doctors.map((doctor, index) => (
+                <div key={index} className="group">
+                  {/* IMAGE */}
+                  <div className="relative overflow-hidden rounded-[28px] bg-[#F8FAFC] aspect-[0.82]">
+                    <img
+                      src={doctor.image}
+                      alt={doctor.name}
+                      className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
+                    />
 
-      relative
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-      overflow-hidden
+                    {/* CONTENT */}
+                    <div className="absolute inset-x-0 bottom-0 p-5">
+                      <div className="flex items-end justify-between gap-4">
+                        <div>
+                          <h3 className="text-xl font-medium tracking-tight text-white">
+                            {doctor.name}
+                          </h3>
 
-      min-h-[280px]
-      sm:min-h-[360px]
-      lg:min-h-full
+                          <p className="mt-1 text-sm text-white/70">
+                            {doctor.specialty}
+                          </p>
+                        </div>
 
-      rounded-[30px]
-      lg:rounded-[40px]
-
-      shadow-[0_30px_100px_rgba(15,23,42,0.10)]
-    "
-          >
-            {/* Image */}
-            <img
-              src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=2200&auto=format&fit=crop"
-              className="
-        absolute inset-0
-
-        w-full h-full
-
-        object-cover
-      "
-            />
-
-            {/* Overlay */}
-            <div
-              className="
-        absolute inset-0
-
-        bg-gradient-to-t
-        from-[#07111F]/90
-        via-[#07111F]/25
-        to-transparent
-      "
-            />
-
-            {/* Content */}
-            <div
-              className="
-        relative z-10
-
-        h-full
-
-        flex flex-col justify-end
-
-        p-5
-        sm:p-8
-      "
-            >
-              {/* Badge */}
-              <div
-                className="
-          inline-flex
-          items-center gap-2
-
-          w-fit
-
-          px-4 py-2.5
-
-          rounded-full
-
-          bg-white/10
-
-          border border-white/10
-
-          backdrop-blur-2xl
-
-          mb-5
-        "
-              >
-                <Sparkles className="w-4 h-4 text-[#5EEAD4]" />
-
-                <span
-                  className="
-            text-[8px]
-            sm:text-[9px]
-
-            uppercase
-
-            tracking-[0.18em]
-
-            font-black
-
-            text-white
-          "
-                >
-                  Smart Healthcare
-                </span>
-              </div>
-
-              {/* Heading */}
-              <h3
-                className="
-          text-[2rem]
-          sm:text-[3rem]
-
-          leading-[0.92]
-
-          tracking-[-0.05em]
-
-          font-black
-
-          text-white
-        "
-              >
-                Premium clinical
-                <br />
-                infrastructure.
-              </h3>
-
-              {/* Bottom Stats */}
-              <div
-                className="
-          grid grid-cols-3
-
-          gap-3
-
-          mt-6
-        "
-              >
-                {[
-                  ["100%", "Sanitized"],
-                  ["24/7", "Support"],
-                  ["AI", "Powered"],
-                ].map(([value, label]) => (
-                  <div
-                    key={label}
-                    className="
-              rounded-2xl
-
-              bg-white/10
-
-              border border-white/10
-
-              backdrop-blur-2xl
-
-              p-3
-            "
-                  >
-                    <h5
-                      className="
-                text-lg
-                sm:text-xl
-
-                font-black
-
-                text-white
-              "
-                    >
-                      {value}
-                    </h5>
-
-                    <p
-                      className="
-                mt-1
-
-                text-[8px]
-
-                uppercase
-
-                tracking-[0.14em]
-
-                text-white/55
-              "
-                    >
-                      {label}
-                    </p>
+                        <button
+                          onClick={() => setSelectedDoctor(doctor)}
+                          className="w-11 h-11 rounded-full bg-white text-[#111827] flex items-center justify-center hover:bg-[#14B8A6] transition-all duration-300"
+                        >
+                          <ArrowUpRight className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* ================= MOBILE IMAGE MARQUEE ================= */}
-        <div
-          className="
-    lg:hidden
-
-    overflow-hidden
-
-    mt-6
-  "
-        >
-          <motion.div
-            animate={{
-              x: ["0%", "-50%"],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="flex gap-4 w-max"
-          >
-            {[
-              "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=1200&auto=format&fit=crop",
-              "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
-              "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=1200&auto=format&fit=crop",
-              "https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?q=80&w=1200&auto=format&fit=crop",
-            ]
-              .concat([
-                "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=1200&auto=format&fit=crop",
-                "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
-                "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=1200&auto=format&fit=crop",
-                "https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?q=80&w=1200&auto=format&fit=crop",
-              ])
-              .map((img, i) => (
-                <div
-                  key={i}
-                  className="
-            relative
-
-            w-[220px]
-            h-[160px]
-
-            shrink-0
-
-            overflow-hidden
-
-            rounded-[24px]
-
-            shadow-[0_20px_60px_rgba(15,23,42,0.08)]
-          "
-                >
-                  <img
-                    src={img}
-                    className="
-              absolute inset-0
-
-              w-full h-full
-
-              object-cover
-            "
-                  />
-
-                  <div
-                    className="
-              absolute inset-0
-
-              bg-gradient-to-t
-              from-[#07111F]/70
-              to-transparent
-            "
-                  />
                 </div>
               ))}
-          </motion.div>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <DoctorProfileDialog
+        doctor={selectedDoctor}
+        onClose={() => setSelectedDoctor(null)}
+        setIsBookingOpen={setIsBookingOpen}
+      />
+    </>
   );
 }

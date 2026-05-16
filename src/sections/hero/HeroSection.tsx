@@ -1,668 +1,227 @@
 import { motion } from "motion/react";
 
-import { Activity, ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
+import { ArrowUpRight, CalendarDays, Sparkles } from "lucide-react";
 
 type Props = {
   setIsBookingOpen: (v: boolean) => void;
 };
 
 export default function HeroSection({ setIsBookingOpen }: Props) {
+  const liveStats = [
+    {
+      value: "24/7",
+      label: "Appointments",
+    },
+    {
+      value: "50+",
+      label: "Specialists",
+    },
+    {
+      value: "12K+",
+      label: "Patients",
+    },
+  ];
+
   return (
-    <section
-      className="
-        relative
+    <section className="w-full min-h-screen bg-[#F0F4F4] px-2 sm:px-3 pt-24 lg:pt-28 pb-3">
+      <div className="relative overflow-hidden w-full bg-white border border-[#E2E8F0] rounded-[32px] sm:rounded-[40px] shadow-[0_10px_40px_rgba(15,23,42,0.06)] min-h-[calc(100vh-120px)]">
+        {/* SOFT GLOW */}
+        <div className="absolute top-[-10%] right-[-10%] w-[300px] h-[300px] lg:w-[720px] lg:h-[720px] rounded-full bg-[#14B8A6]/10 blur-[120px]" />
 
-        min-h-[100svh]
-
-        overflow-hidden
-
-        bg-[#EEF7F6]
-      "
-    >
-      {/* ================= HERO CONTAINER ================= */}
-      <div
-        className="
-          relative
-
-          w-full
-          min-h-[100svh]
-
-          overflow-hidden
-        "
-      >
-        {/* ================= BACKGROUND ================= */}
-        <div className="absolute inset-0">
-          {/* Image */}
-          <img
-            src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?q=80&w=2200&auto=format&fit=crop"
-            className="
-              w-full
-              h-full
-
-              object-cover
-            "
-          />
-
-          {/* Overlay */}
-          <div
-            className="
-              absolute inset-0
-
-              bg-gradient-to-r
-              from-[#07111F]/95
-              via-[#07111F]/72
-              to-[#07111F]/25
-            "
-          />
-
-          {/* Glow 1 */}
-          <div
-            className="
-              absolute
-              left-[-10%]
-              top-[-10%]
-
-              w-[320px]
-              h-[320px]
-
-              lg:w-[900px]
-              lg:h-[900px]
-
-              rounded-full
-
-              bg-[#14B8A6]/20
-
-              blur-[100px]
-              lg:blur-[170px]
-            "
-          />
-
-          {/* Glow 2 */}
-          <div
-            className="
-              absolute
-              bottom-[-20%]
-              right-[-10%]
-
-              w-[260px]
-              h-[260px]
-
-              lg:w-[700px]
-              lg:h-[700px]
-
-              rounded-full
-
-              bg-[#5EEAD4]/10
-
-              blur-[90px]
-              lg:blur-[150px]
-            "
-          />
-        </div>
-
-        {/* ================= CONTENT ================= */}
-        <div
-          className="
-            relative z-20
-
-            w-full
-            max-w-[1650px]
-
-            mx-auto
-
-            px-5
-            sm:px-8
-            lg:px-20
-            xl:px-28
-
-            pt-36
-            sm:pt-40
-            lg:pt-44
-
-            pb-36
-            sm:pb-40
-            lg:pb-52
-          "
-        >
-          <div className="max-w-[780px]">
-            {/* ================= BADGE ================= */}
-            <motion.div
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-              className="
-                inline-flex
-                items-center gap-2
-
-                px-4 py-2.5
-                sm:px-5 sm:py-3
-
-                rounded-full
-
-                bg-white/10
-
-                backdrop-blur-2xl
-
-                border border-white/10
-              "
-            >
-              {/* Pulse */}
-              <div className="relative">
-                <div
-                  className="
-                    w-2 h-2
-
-                    rounded-full
-
-                    bg-[#5EEAD4]
-                  "
-                />
-
-                <div
-                  className="
-                    absolute inset-0
-
-                    rounded-full
-
-                    bg-[#5EEAD4]
-
-                    animate-ping
-                  "
-                />
-              </div>
-
-              {/* Text */}
-              <span
-                className="
-                  text-white/90
-
-                  text-[9px]
-                  sm:text-xs
-
-                  uppercase
-
-                  tracking-[0.22em]
-                  sm:tracking-[0.3em]
-
-                  font-black
-                "
+        {/* GRID */}
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 min-h-[calc(100vh-120px)]">
+          {/* LEFT CONTENT */}
+          <div className="lg:col-span-5 flex flex-col justify-between p-6 sm:p-10 lg:p-14">
+            <div>
+              {/* BADGE */}
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  y: 20,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  duration: 0.5,
+                }}
+                className="inline-flex items-center gap-2 rounded-full bg-[#F8FAFC] border border-[#E2E8F0] px-4 py-2"
               >
-                Trusted Advanced Healthcare
-              </span>
-            </motion.div>
+                <Sparkles className="w-4 h-4 text-[#14B8A6]" />
 
-            {/* ================= HEADING ================= */}
-            <motion.h1
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="
-                mt-6
-                sm:mt-8
+                <span className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#0F172A]">
+                  Smart Healthcare Platform
+                </span>
+              </motion.div>
 
-                text-[2.8rem]
-                sm:text-[4.8rem]
-                lg:text-[7rem]
-
-                leading-[0.9]
-
-                tracking-[-0.06em]
-
-                font-black
-
-                text-white
-              "
-            >
-              Compassionate
-              <br />
-              <span className="text-white">care,</span>
-              <span className="text-[#5EEAD4]"> exceptional</span>
-              <br />
-              results.
-            </motion.h1>
-
-            {/* ================= DESCRIPTION ================= */}
-            <motion.p
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="
-                mt-5
-                sm:mt-8
-
-                max-w-[640px]
-
-                text-[15px]
-                sm:text-lg
-                lg:text-xl
-
-                leading-relaxed
-
-                text-white/72
-              "
-            >
-              Delivering world-class healthcare with personalized treatment,
-              intelligent clinical systems, and patient-first care trusted by
-              thousands of families.
-            </motion.p>
-
-            {/* ================= CTA ================= */}
-            <motion.div
-              initial={{ opacity: 0, y: 25 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="
-                flex flex-col sm:flex-row
-
-                gap-4 sm:gap-5
-
-                mt-8
-                sm:mt-10
-              "
-            >
-              {/* Primary CTA */}
-              <button
-                onClick={() => setIsBookingOpen(true)}
-                className="
-                  group
-
-                  h-[54px]
-                  sm:h-[62px]
-
-                  px-6
-                  sm:px-8
-
-                  rounded-2xl
-
-                  bg-gradient-to-r
-                  from-[#0F766E]
-                  via-[#14B8A6]
-                  to-[#2DD4BF]
-
-                  text-white
-
-                  text-[11px]
-                  sm:text-sm
-
-                  font-black
-
-                  uppercase
-
-                  tracking-[0.18em]
-
-                  flex items-center justify-center gap-3
-
-                  shadow-[0_20px_60px_rgba(20,184,166,0.35)]
-
-                  hover:scale-[1.02]
-                  hover:shadow-[0_25px_70px_rgba(20,184,166,0.45)]
-
-                  transition-all duration-500
-                "
+              {/* TITLE */}
+              <motion.h1
+                initial={{
+                  opacity: 0,
+                  y: 20,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.1,
+                }}
+                className="mt-8 text-[3.2rem] sm:text-[5rem] lg:text-[6.2rem] leading-[0.92] tracking-[-0.06em] font-normal text-[#0F172A]"
               >
-                Book Appointment
-                <ArrowRight
-                  className="
-                    w-4 h-4
-                    sm:w-5 sm:h-5
+                Modern healthcare,
+                <br />
+                powered by
+                <br />
+                live scheduling.
+              </motion.h1>
 
-                    group-hover:translate-x-1
-
-                    transition-transform
-                  "
-                />
-              </button>
-
-              {/* Premium Analytics Card */}
-              <div
-                className="
-    relative
-
-    overflow-hidden
-
-    flex items-center gap-4
-
-    rounded-2xl
-
-    bg-white/10
-
-    backdrop-blur-3xl
-
-    border border-white/10
-
-    px-5
-    sm:px-6
-
-    py-3
-    sm:py-4
-
-    min-w-[260px]
-  "
+              {/* DESCRIPTION */}
+              <motion.p
+                initial={{
+                  opacity: 0,
+                  y: 20,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.2,
+                }}
+                className="mt-6 max-w-xl text-sm sm:text-base leading-relaxed text-[#64748B]"
               >
-                {/* Glow */}
-                <div
-                  className="
-      absolute
-      top-[-40%]
-      right-[-20%]
+                Book consultations, access diagnostics and manage specialist
+                appointments through one connected healthcare experience.
+              </motion.p>
 
-      w-[140px]
-      h-[140px]
-
-      rounded-full
-
-      bg-[#14B8A6]/20
-
-      blur-[60px]
-    "
-                />
-
-                {/* Animated Graph */}
-                <div
-                  className="
-      relative z-10
-
-      flex items-end gap-1
-
-      h-[32px]
-    "
+              {/* CTA */}
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  y: 20,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.3,
+                }}
+                className="flex flex-wrap items-center gap-4 mt-8"
+              >
+                <button
+                  onClick={() => setIsBookingOpen(true)}
+                  className="group h-[56px] px-7 rounded-2xl bg-[#111827] hover:bg-[#14B8A6] text-white hover:text-black text-sm font-medium flex items-center gap-2 transition-all duration-300"
                 >
-                  {[50, 80, 65, 95, 70].map((h, i) => (
-                    <motion.div
-                      key={i}
-                      animate={{
-                        height: [`${h - 25}%`, `${h}%`, `${h - 15}%`],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        delay: i * 0.15,
-                      }}
-                      className="
-          w-1.5
-          sm:w-2
+                  <CalendarDays className="w-4 h-4" />
 
-          rounded-full
+                  <span>Book Appointment</span>
 
-          bg-gradient-to-t
-          from-[#0F766E]
-          via-[#14B8A6]
-          to-[#5EEAD4]
-        "
-                    />
-                  ))}
+                  <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform duration-300" />
+                </button>
+
+                <div className="flex items-center gap-2 text-sm text-[#64748B]">
+                  <div className="w-2 h-2 rounded-full bg-[#14B8A6]" />
+
+                  <span>Live doctor availability</span>
                 </div>
+              </motion.div>
+            </div>
 
-                {/* Text */}
-                <div className="relative z-10">
-                  <p
-                    className="
-        text-[9px]
-        sm:text-[10px]
+            {/* STATS */}
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 20,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                duration: 0.6,
+                delay: 0.4,
+              }}
+              className="grid grid-cols-3 gap-3 mt-10"
+            >
+              {liveStats.map((item) => (
+                <div
+                  key={item.label}
+                  className="rounded-[24px] border border-[#E2E8F0] bg-[#F8FAFC] p-4 sm:p-5"
+                >
+                  <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-[#0F172A]">
+                    {item.value}
+                  </h3>
 
-        uppercase
-
-        tracking-[0.18em]
-
-        font-black
-
-        text-white/45
-      "
-                  >
-                    Clinical Analytics
+                  <p className="mt-1 text-[11px] uppercase tracking-wider text-[#64748B]">
+                    {item.label}
                   </p>
-
-                  <h4
-                    className="
-        mt-1
-
-        text-sm
-        sm:text-base
-
-        font-bold
-
-        text-white
-      "
-                  >
-                    Live AI Health Metrics
-                  </h4>
-                </div>
-
-                {/* Badge */}
-                <div
-                  className="
-      relative z-10
-
-      ml-auto
-
-      flex items-center justify-center
-
-      w-10 h-10
-
-      rounded-xl
-
-      bg-[#14B8A6]/15
-
-      border border-[#14B8A6]/20
-    "
-                >
-                  <Activity className="w-5 h-5 text-[#5EEAD4]" />
-                </div>
-              </div>
-            </motion.div>
-
-            {/* ================= TRUST INDICATORS ================= */}
-            <div
-              className="
-                grid
-
-                grid-cols-1
-                sm:grid-cols-3
-
-                gap-3
-                sm:gap-4
-
-                mt-8
-                sm:mt-12
-              "
-            >
-              {[
-                "24/7 Emergency Support",
-                "Certified Specialists",
-                "Modern Clinical Labs",
-              ].map((item) => (
-                <div
-                  key={item}
-                  className="
-                    flex items-center gap-2
-
-                    rounded-2xl
-
-                    bg-white/[0.05]
-
-                    border border-white/10
-
-                    backdrop-blur-2xl
-
-                    px-4 py-3
-                  "
-                >
-                  <CheckCircle2 className="w-4 h-4 text-[#5EEAD4]" />
-
-                  <span
-                    className="
-                      text-[12px]
-                      sm:text-sm
-
-                      text-white/75
-                    "
-                  >
-                    {item}
-                  </span>
                 </div>
               ))}
-            </div>
+            </motion.div>
           </div>
-        </div>
 
-        {/* ================= FLOATING RECOVERY CARD ================= */}
-        <motion.div
-          animate={{ y: [0, -14, 0] }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-          }}
-          className="
-            hidden xl:flex
-
-            absolute
-            top-40
-            right-24
-
-            items-center gap-5
-
-            px-7 py-5
-
-            rounded-[32px]
-
-            bg-white/75
-
-            backdrop-blur-3xl
-
-            border border-white/50
-
-            shadow-[0_25px_80px_rgba(15,23,42,0.15)]
-
-            z-30
-          "
-        >
-          {/* Avatars */}
-          <div className="flex -space-x-3">
-            {[1, 2, 3].map((i) => (
+          {/* RIGHT IMAGE */}
+          <div className="lg:col-span-7 relative p-3 sm:p-5 lg:p-6">
+            <div className="relative w-full h-full min-h-[500px] lg:min-h-full rounded-[30px] overflow-hidden bg-[#111827]">
+              {/* IMAGE */}
               <img
-                key={i}
-                src={`https://i.pravatar.cc/100?img=${i + 10}`}
-                className="
-                  w-14 h-14
-
-                  rounded-full
-
-                  border-2 border-white
-                "
+                src="https://images.unsplash.com/photo-1584982751601-97dcc096659c?q=80&w=1600&auto=format&fit=crop"
+                alt="Healthcare Platform"
+                className="absolute inset-0 w-full h-full object-cover opacity-75"
               />
-            ))}
-          </div>
 
-          {/* Content */}
-          <div>
-            <h4
-              className="
-                text-3xl
+              {/* OVERLAY */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#111827] via-[#111827]/20 to-[#111827]/50" />
 
-                font-black
+              {/* TOP STATUS */}
+              <div className="absolute top-5 left-5">
+                <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 px-4 py-2">
+                  <div className="w-2 h-2 rounded-full bg-[#14B8A6]" />
 
-                text-[#0F172A]
-              "
-            >
-              150K+
-            </h4>
-
-            <p className="text-sm text-[#0F172A]/55">Successful Recoveries</p>
-          </div>
-        </motion.div>
-
-        {/* ================= BOTTOM STATS ================= */}
-        <div
-          className="
-            absolute
-
-            left-1/2
-            bottom-5
-            sm:bottom-8
-            lg:bottom-10
-
-            -translate-x-1/2
-
-            w-[92%]
-            max-w-[1450px]
-
-            rounded-[28px]
-            lg:rounded-[36px]
-
-            bg-white/12
-
-            backdrop-blur-3xl
-
-            border border-white/15
-
-            shadow-[0_30px_80px_rgba(0,0,0,0.18)]
-
-            px-5
-            sm:px-8
-            lg:px-14
-
-            py-5
-            sm:py-6
-            lg:py-10
-
-            z-30
-          "
-        >
-          <div
-            className="
-              grid
-              grid-cols-2
-              lg:grid-cols-4
-
-              gap-5
-              sm:gap-8
-              lg:gap-10
-            "
-          >
-            {[
-              ["20+", "Years Experience"],
-              ["95%", "Patient Satisfaction"],
-              ["5,000+", "Patients Served"],
-              ["120+", "Healthcare Specialists"],
-            ].map(([number, label]) => (
-              <div key={label}>
-                <h3
-                  className="
-                    text-2xl
-                    sm:text-4xl
-                    lg:text-6xl
-
-                    font-black
-
-                    tracking-[-0.05em]
-
-                    text-white
-                  "
-                >
-                  {number}
-                </h3>
-
-                <p
-                  className="
-                    mt-2
-                    sm:mt-3
-
-                    text-[9px]
-                    sm:text-[11px]
-                    lg:text-xs
-
-                    uppercase
-
-                    tracking-[0.15em]
-                    sm:tracking-[0.2em]
-
-                    text-white/60
-                  "
-                >
-                  {label}
-                </p>
+                  <span className="text-[11px] uppercase tracking-[0.18em] text-white/80">
+                    24/7 Live Healthcare Access
+                  </span>
+                </div>
               </div>
-            ))}
+
+              {/* BOTTOM CONTENT */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 lg:p-10">
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    y: 30,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.5,
+                  }}
+                  className="max-w-2xl"
+                >
+                  <h3 className="text-3xl sm:text-5xl lg:text-6xl leading-[0.95] tracking-[-0.05em] font-normal text-white">
+                    Connected healthcare
+                    <br />
+                    for modern clinics &
+                    <br />
+                    patient care.
+                  </h3>
+
+                  <p className="mt-5 max-w-xl text-sm sm:text-base leading-relaxed text-white/70">
+                    Real-time appointments, diagnostics scheduling and
+                    specialist care through one seamless healthcare platform.
+                  </p>
+                </motion.div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
