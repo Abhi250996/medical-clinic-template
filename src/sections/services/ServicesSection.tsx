@@ -1,4 +1,5 @@
 import {
+  Activity,
   ArrowRight,
   HeartPulse,
   Sparkles,
@@ -11,22 +12,34 @@ type Props = {
 };
 
 export default function ServicesSection({ setIsBookingOpen }: Props) {
-  const services = [
+  const featuredServices = [
     {
       icon: HeartPulse,
       title: "Cardiology",
-      desc: "Heart consultations, diagnostics and preventive healthcare support.",
+      desc: "Heart consultations and preventive healthcare support.",
     },
     {
       icon: Stethoscope,
       title: "Primary Care",
-      desc: "Routine consultations and connected healthcare appointments.",
+      desc: "Routine consultations and connected appointments.",
     },
     {
       icon: Syringe,
       title: "Wellness Care",
-      desc: "Preventive screenings and modern healthcare programs.",
+      desc: "Preventive screenings and healthcare programs.",
     },
+  ];
+
+  const moreServices = [
+    "Lab Testing",
+    "Diagnostics",
+    "Neurology",
+    "Vaccination",
+    "ECG Monitoring",
+    "Blood Testing",
+    "Health Screening",
+    "Consultation",
+    "Preventive Care",
   ];
 
   return (
@@ -34,9 +47,8 @@ export default function ServicesSection({ setIsBookingOpen }: Props) {
       id="services"
       className="w-full bg-[#F0F4F4] px-4 sm:px-6 lg:px-8 py-6 lg:py-8"
     >
-      ```
       <div className="relative overflow-hidden bg-white rounded-[32px] sm:rounded-[40px] px-6 sm:px-10 lg:px-14 py-14 lg:py-20">
-        {/* SOFT GLOW */}
+        {/* GLOW */}
         <div className="absolute top-[-10%] right-[-10%] w-[320px] h-[320px] rounded-full bg-[#14B8A6]/10 blur-[120px]" />
 
         <div className="relative z-10">
@@ -55,21 +67,21 @@ export default function ServicesSection({ setIsBookingOpen }: Props) {
             <h2 className="mt-6 text-3xl sm:text-5xl lg:text-6xl leading-[0.95] tracking-[-0.05em] font-normal text-[#0F172A]">
               Modern healthcare
               <br />
-              services designed for
+              services for connected
               <br />
               patient care.
             </h2>
 
-            {/* DESCRIPTION */}
+            {/* DESC */}
             <p className="mt-6 max-w-2xl text-sm sm:text-base leading-relaxed text-[#64748B]">
-              Access consultations, preventive healthcare and connected
-              appointment scheduling through one seamless platform.
+              Access consultations, diagnostics and healthcare scheduling
+              through one seamless platform.
             </p>
           </div>
 
-          {/* SERVICES */}
+          {/* FEATURED SERVICES */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-14">
-            {services.map((service, index) => {
+            {featuredServices.map((service, index) => {
               const Icon = service.icon;
 
               return (
@@ -95,6 +107,28 @@ export default function ServicesSection({ setIsBookingOpen }: Props) {
                 </div>
               );
             })}
+          </div>
+
+          {/* MORE SERVICES */}
+          <div className="mt-14">
+            <div className="flex items-center gap-2 mb-6">
+              <Activity className="w-4 h-4 text-[#14B8A6]" />
+
+              <span className="text-sm font-medium text-[#0F172A]">
+                More Healthcare Services
+              </span>
+            </div>
+
+            <div className="flex flex-wrap gap-3">
+              {moreServices.map((item) => (
+                <div
+                  key={item}
+                  className="px-4 py-2 rounded-full bg-[#F8FAFC] text-sm text-[#0F172A]"
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* CTA */}
